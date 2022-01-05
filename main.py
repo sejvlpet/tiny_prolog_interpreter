@@ -10,6 +10,8 @@ from Constatnts import *
             enter ; to see them.
 """
 
+# todo needs to be testable, co run in two modes, one from input, second from tests
+
 def bad_input():
     print(BAD_INPUT_MSG)
 
