@@ -1,5 +1,6 @@
 from Constatnts import *
 from Fact import Fact
+from Rule import Rule
 
 """
 Handles translation from line given to constructor to proper clause, either fact or rule
@@ -22,7 +23,11 @@ class Clause_reader:
 
         else:
             # otherwise rule is read
-            pass
+            splitted = self._line.split(IMPL_SIGN)
+            name = splitted[0].replace(" ", "")
+            body = splitted[1].replace(" ", "")
+            return Rule(name, body)
+
 
 
 

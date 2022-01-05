@@ -10,7 +10,7 @@ class TestClause(unittest.TestCase):
         pass
 
     def test_clause_reader_basic(self):
-        line = "parent(a, b, 1, 2)."
+        line = "parent(a, b, 1, 2)"
         reader = Clause_reader(line)
         res = reader.read()
         self.assertTrue(res.compare_name_value("parent", ["a", "b", 1, 2], False))
@@ -34,7 +34,7 @@ class TestClause(unittest.TestCase):
             self.assertTrue(True)
 
     def test_clause_reader_weid_input(self):
-        line = "parent(X, b, 1, 2dsdf) sfsdf:- sdf"
+        line = "parent(a, b, 1, 2dsdf) sfsdf:- sdf"
         reader = Clause_reader(line)
 
         try:
@@ -42,6 +42,14 @@ class TestClause(unittest.TestCase):
             self.assertTrue(False)
         except:
             self.assertTrue(True)
+
+
+    def test_clause_reader_rule_basic(self):
+        line = "tra(X, Z) :- tra(X, Y), tra(Y, X)"
+        reader = Clause_reader(line)
+        res = reader.read()
+
+        print("olalala")
 
 
 
