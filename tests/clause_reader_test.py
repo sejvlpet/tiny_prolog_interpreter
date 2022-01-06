@@ -1,5 +1,7 @@
 import unittest
 from main.clause.clause_reader import Clause_reader
+from main.question.is_question import Is_question
+from main.question.custom_question import Custom_question
 
 """
 Tests thing around clauses
@@ -44,15 +46,44 @@ class TestClause(unittest.TestCase):
             self.assertTrue(True)
 
 
-    def test_clause_reader_rule_basic(self):
-        line = "tra(X, Z) :- tra(X, Y), tra(Y, X)"
+    def test_clause_reader_rule_custom_question(self):
+        line = "tra(X,Z):-tra(X, Y),tra(Y, Z)"
         reader = Clause_reader(line)
         res = reader.read()
 
-        print("olalala")
+        self.assertTrue(res.compare_name_value("tra", [Custom_question("tra(X,Y)"),
+                                                    Custom_question("tra(Y,Z)")],
+                                                    ["X", "Z"],
+                                                    False))
+
+    def test_clause_reader_rule_is_question(self):
+        line = "tra(X,Z):- 10 is 5 * 2"
+        reader = Clause_reader(line)
+        res = reader.read()
+
+        self.assertTrue(res.compare_name_value("tra", [Is_question(10, 5, 2, "*")], ["X", "Z"],
+                                                    False))
+
+
+    def test_clause_reader_rule_is_question_cutting(self):
+        line = "tra(X,Z):- 10 is 5 * 2, !"
+        reader = Clause_reader(line)
+        res = reader.read()
+
+        self.assertTrue(res.compare_name_value("tra", [Is_question(10, 5, 2, "*")], ["X", "Z"],
+                                                    True))
 
 
 
+    def test_clause_reader_rule_all(self):
+        line = "tra(X,Z):-tra(X, Y),tra(Y, Z), 10 is 5 * 2, !"
+        reader = Clause_reader(line)
+        res = reader.read()
+
+        self.assertTrue(res.compare_name_value("tra", [Custom_question("tra(X,Y)"),
+                                                    Custom_question("tra(Y,Z)"), Is_question(10, 5, 2, "*")],
+                                               ["X", "Z"],
+                                                    True))
 
 
 if __name__ == '__main__':

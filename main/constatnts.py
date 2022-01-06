@@ -11,5 +11,14 @@ CLAUSE_END = ")"
 MIN_FACT_LEN = len(CLAUSE_START) + len(CLAUSE_END) + 1
 ATOM_SEPARATOR = ","
 PREDICATE_SEPARATOR = "),"
+IS_SIGN = "is"
+LESS = "<"
+PLUS = "+"
+MINUS = "-"
+PRODUCT = "*"
+
+
+def is_atom(x):
+    return x.isdigit() or x[0].islower
 
 

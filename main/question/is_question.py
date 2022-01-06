@@ -13,6 +13,9 @@ class Is_question(Question):
         self._r2 = r2
         self._sign = sign
 
+    def __eq__(self, other):
+        return self._left_var == other._left_var and self._r1 == other._r1 \
+               and self._r2 == other._r2 and self._sign == other._sign
 
     """
     return either true, or value for left var

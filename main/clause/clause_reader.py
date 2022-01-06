@@ -9,7 +9,7 @@ class Clause_reader:
 
 
     def __init__(self, line):
-        self._line = line
+        self._line = line.replace(" ", "") # todo as we're using thins now, remove other occurances
 
     """ from self._line reads and return the clause """
     def read(self):
@@ -24,8 +24,8 @@ class Clause_reader:
         else:
             # otherwise rule is read
             splitted = self._line.split(IMPL_SIGN)
-            name = splitted[0].replace(" ", "")
-            body = splitted[1].replace(" ", "")
+            name = splitted[0]
+            body = splitted[1]
             return Rule(name, body)
 
 

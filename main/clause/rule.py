@@ -1,8 +1,12 @@
 from main.clause.clause import Clause
 from main.constatnts import *
+from main.question.is_question import Is_question
+from main.question.custom_question import Custom_question
+
 
 """
 Rule is a clause consisting from predicate in head and predicates in body
+for simplicity, only and in the body is implemented
 """
 class Rule(Clause):
 
@@ -18,17 +22,32 @@ class Rule(Clause):
 
     """ from string creates value of the fact"""
     def _get_value(self, body):
-        splitted = body.strip().split(PREDICATE_SEPARATOR)
-
-        if splitted[-1] != CUT_SIGN:
-            # to keep things consitent, remove last paranthesis
-            splitted[-1] = splitted[-1][: -len(CLAUSE_END)]
-            self._cutting = False # just for sure
-        else:
+        splitted = body.split(PREDICATE_SEPARATOR)
+        if splitted[-1][-1] == CUT_SIGN:
             self._cutting = True
+            splitted[-1] = splitted[-1][:-2]
+        body = []
 
+        for r in splitted:
+            r = r.replace(" ", "")
+            if IS_SIGN in r:
+                left, right = r.split(IS_SIGN)
+                left_var = int(left) if left.isdigit() else None
 
-        return splitted
+                if PLUS in right or PRODUCT in right:
+                    sign = PLUS if PLUS in right else PRODUCT
+                    r1, r2 = right.split(sign)
+                    r1 = int(r1) if r1.isdigit() else r1
+                    r2 = int(r2) if r2.isdigit() else r2
+                    body.append(Is_question(left_var, r1, r2, sign))
+                else:
+                    body.append(Is_question(left_var, r1))
+
+            elif CLAUSE_START in r:
+                # handle clause by name and params
+                body.append(Custom_question(r))
+
+        return body
 
     """ test method """
     def compare_name_value(self, name, value, params, cutting):
