@@ -1,5 +1,5 @@
-from main.Constatnts import *
-from main.clause.Clause import Clause
+from main.constatnts import *
+from main.clause.clause import Clause
 
 """
 Fact shall have a name and a value, where value is a list of atoms

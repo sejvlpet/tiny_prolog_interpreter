@@ -1,4 +1,4 @@
-from Constatnts import *
+from constatnts import *
 """
     Runs program
 

@@ -1,6 +1,9 @@
-from main.clause.Clause import Clause
-from main.Constatnts import *
+from main.clause.clause import Clause
+from main.constatnts import *
 
+"""
+Rule is a clause consisting from predicate in head and predicates in body
+"""
 class Rule(Clause):
 
     def __init__(self, head, body):
