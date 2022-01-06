@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from Constatnts import *
+
 """
 Abstract parent to clauses
 

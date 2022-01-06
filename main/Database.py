@@ -1,4 +1,4 @@
-from Clause import *
+from clause import *
 
 """
 This file contents classes needed for proper function of our tiny-prolog database

@@ -1,5 +1,5 @@
 import unittest
-from Clause_reader import Clause_reader
+from main.clause.Clause_reader import Clause_reader
 
 """
 Tests thing around clauses

@@ -1,6 +1,6 @@
-from Constatnts import *
-from Fact import Fact
-from Rule import Rule
+from main.Constatnts import *
+from main.clause.Fact import Fact
+from main.clause.Rule import Rule
 
 """
 Handles translation from line given to constructor to proper clause, either fact or rule

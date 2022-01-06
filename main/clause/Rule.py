@@ -1,6 +1,5 @@
-from abc import ABC, abstractmethod
-from Clause import Clause
-from Constatnts import *
+from main.clause.Clause import Clause
+from main.Constatnts import *
 
 class Rule(Clause):
 
