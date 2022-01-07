@@ -7,7 +7,7 @@ class Custom_question(Question):
     def __init__(self, clause):
         splitted = clause.split(CLAUSE_START)
         self._name = splitted[0]
-        self._body = splitted[1].split(CLAUSE_END)[0]
+        self._body = splitted[1].split(CLAUSE_END)[0].split(ATOM_SEPARATOR)
 
     def __eq__(self, other):
         if len(self._body) != len(other._body):
