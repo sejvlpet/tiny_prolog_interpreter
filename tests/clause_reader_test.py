@@ -12,21 +12,21 @@ class TestClause(unittest.TestCase):
         pass
 
     def test_clause_reader_basic(self):
-        line = "parent(a, b, 1, 2)"
+        line = "parent(a,b,1,2)"
         reader = Clause_reader(line)
         res = reader.read()
         self.assertTrue(res.compare_name_value("parent", ["a", "b", 1, 2], False))
 
 
     def test_clause_reader_basic_cutting(self):
-        line = "parent(a, b, 1, 2) :-       ! "
+        line = "parent(a,b,1,2):-!"
         reader = Clause_reader(line)
         res = reader.read()
         self.assertTrue(res.compare_name_value("parent", ["a", "b", 1, 2], True))
 
 
     def test_clause_reader_variable(self):
-        line = "parent(X, b, 1, 2) :-       ! "
+        line = "parent(X,b,1,2):-!"
         reader = Clause_reader(line)
 
         try:
@@ -36,7 +36,7 @@ class TestClause(unittest.TestCase):
             self.assertTrue(True)
 
     def test_clause_reader_weid_input(self):
-        line = "parent(a, b, 1, 2dsdf) sfsdf:- sdf"
+        line = "parent(a,b,1,2dsdf)sfsdf-sdf"
         reader = Clause_reader(line)
 
         try:
@@ -47,7 +47,7 @@ class TestClause(unittest.TestCase):
 
 
     def test_clause_reader_rule_custom_question(self):
-        line = "tra(X,Z):-tra(X, Y),tra(Y, Z)"
+        line = "tra(X,Z):-tra(X,Y),tra(Y,Z)"
         reader = Clause_reader(line)
         res = reader.read()
 
@@ -57,7 +57,7 @@ class TestClause(unittest.TestCase):
                                                     False))
 
     def test_clause_reader_rule_is_question(self):
-        line = "tra(X,Z):- 10 is 5 * 2"
+        line = "tra(X,Z):-10is5*2"
         reader = Clause_reader(line)
         res = reader.read()
 
@@ -66,7 +66,7 @@ class TestClause(unittest.TestCase):
 
 
     def test_clause_reader_rule_is_question_cutting(self):
-        line = "tra(X,Z):- 10 is 5 * 2, !"
+        line = "tra(X,Z):-10is5*2,!"
         reader = Clause_reader(line)
         res = reader.read()
 
@@ -76,7 +76,7 @@ class TestClause(unittest.TestCase):
 
 
     def test_clause_reader_rule_all(self):
-        line = "tra(X,Z):-tra(X, Y),tra(Y, Z), 10 is 5 * 2, !"
+        line = "tra(X,Z):-tra(X,Y),tra(Y,Z),10is5*2,!"
         reader = Clause_reader(line)
         res = reader.read()
 

@@ -28,7 +28,7 @@ class Rule(Clause):
         body = []
 
         for r in splitted:
-            r = r.replace(" ", "")
+            r = r.replace(CLAUSE_END, "")
             if IS_SIGN in r:
                 left, right = r.split(IS_SIGN)
                 left_var = int(left) if left.isdigit() else None
@@ -44,7 +44,7 @@ class Rule(Clause):
                     r2 = int(r2) if r2.isdigit() else r2
                     body.append(Is_question(left_var, r1, r2, sign))
                 else:
-                    body.append(Is_question(left_var, r1))
+                    body.append(Is_question(left_var, r))
 
             elif CLAUSE_START in r:
                 # handle clause by name and params

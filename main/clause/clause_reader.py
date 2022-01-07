@@ -9,7 +9,7 @@ class Clause_reader:
 
 
     def __init__(self, line):
-        self._line = line.replace(" ", "") # todo as we're using thins now, remove other occurances
+        self._line = line
 
     """ from self._line reads and return the clause """
     def read(self):

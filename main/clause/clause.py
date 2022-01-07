@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from main.constatnts import *
 
 """
 Abstract parent to clauses
@@ -12,7 +13,7 @@ class Clause(ABC):
 
 
     def __init__(self, body, name):
-        self._name = name
+        self._name = name.replace(CLAUSE_END, "")
         self._value = self._get_value(body)
 
     """ from string creates value of the fact"""
