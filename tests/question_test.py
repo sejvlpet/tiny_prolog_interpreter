@@ -54,6 +54,22 @@ class TestClause(unittest.TestCase):
         a = q.answer()
         self.assertFalse(a)
 
+
+    def test_is_question_val_minus(self):
+        q = Is_question(None, 6, 12, "-")
+        a = q.answer()
+        self.assertTrue(a == -6)
+
+    def test_is_question_val_minus_ok(self):
+        q = Is_question(7, 19, 12, "-")
+        a = q.answer()
+        self.assertTrue(a)
+
+    def test_is_question_val_minus_fail(self):
+        q = Is_question(7, 190000, 1223, "-")
+        a = q.answer()
+        self.assertFalse(a)
+
     # todo custom_question tests
 
 

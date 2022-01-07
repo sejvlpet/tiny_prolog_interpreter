@@ -11,11 +11,17 @@ Rule is true if it's body is true, body can consist from other clauses
 class Clause(ABC):
 
 
-    def __init__(self, body):
+    def __init__(self, body, name):
+        self._name = name
         self._value = self._get_value(body)
 
     """ from string creates value of the fact"""
     @abstractmethod
     def _get_value(self, body):
         pass
+
+    def name(self):
+        return self._name[:]
+    def size(self):
+        return len(self._value)
 

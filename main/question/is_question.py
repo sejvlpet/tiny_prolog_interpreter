@@ -35,8 +35,11 @@ class Is_question(Question):
 
         if self._sign == PLUS:
             return self._r1 + self._r2
-        if self._sign == PRODUCT:
+        elif self._sign == PRODUCT:
             return self._r1 * self._r2
+
+        elif self._sign == MINUS:
+            return self._r1 - self._r2
 
         else:
             raise Exception(BAD_INPUT_MSG)

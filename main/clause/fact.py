@@ -8,9 +8,8 @@ class Fact(Clause):
 
     def __init__(self, fact, cutting):
         splitted = fact.split(CLAUSE_START)
-        self._name = splitted[0]
         body = splitted[1].split(CLAUSE_END)[0]
-        super().__init__(body)
+        super().__init__(body, splitted[0])
 
         self._cutting = cutting
 

@@ -14,10 +14,9 @@ class Rule(Clause):
         splitted_head = head.split(CLAUSE_START)
 
         # fixme this should rather be new object, predicate or something like that
-        self._name = splitted_head[0]
         self._params = splitted_head[1].split(CLAUSE_END)[0].split(ATOM_SEPARATOR)
         self._cutting = False # default value
-        super().__init__(body)
+        super().__init__(body, splitted_head[0])
 
 
     """ from string creates value of the fact"""
@@ -34,8 +33,12 @@ class Rule(Clause):
                 left, right = r.split(IS_SIGN)
                 left_var = int(left) if left.isdigit() else None
 
-                if PLUS in right or PRODUCT in right:
-                    sign = PLUS if PLUS in right else PRODUCT
+                if PLUS in right or PRODUCT in right or MINUS in right:
+                    # get the right sin
+                    sign = PLUS if PLUS in right else None
+                    sign = MINUS if MINUS in right else sign
+                    sign = PRODUCT if PRODUCT in right else sign
+
                     r1, r2 = right.split(sign)
                     r1 = int(r1) if r1.isdigit() else r1
                     r2 = int(r2) if r2.isdigit() else r2
