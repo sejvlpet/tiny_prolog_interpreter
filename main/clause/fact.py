@@ -31,6 +31,11 @@ class Fact(Clause):
 
         return splitted
 
+    def size(self):
+        return len(self._value)
+
+    def __eq__(self, other):
+        return self.compare_name_value(other._name, other._value, other._cutting)
 
     """ test method """
     def compare_name_value(self, name, value, cutting):

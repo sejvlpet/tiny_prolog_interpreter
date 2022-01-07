@@ -47,7 +47,7 @@ class TestClause(unittest.TestCase):
 
 
     def test_clause_reader_rule_custom_question(self):
-        line = "tra(X,Z):-tra(X,Y),tra(Y,Z)"
+        line = "tra(X,Z):-tra(X,Y)&tra(Y,Z)"
         reader = Clause_reader(line)
         res = reader.read()
 
@@ -76,7 +76,7 @@ class TestClause(unittest.TestCase):
 
 
     def test_clause_reader_rule_all(self):
-        line = "tra(X,Z):-tra(X,Y),tra(Y,Z),10is5*2,!"
+        line = "tra(X,Z):-tra(X,Y)&tra(Y,Z)&10is5*2,!"
         reader = Clause_reader(line)
         res = reader.read()
 

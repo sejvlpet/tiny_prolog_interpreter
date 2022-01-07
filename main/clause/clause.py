@@ -23,6 +23,8 @@ class Clause(ABC):
 
     def name(self):
         return self._name[:]
+
+    @abstractmethod
     def size(self):
-        return len(self._value)
+        pass
 

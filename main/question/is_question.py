@@ -21,7 +21,7 @@ class Is_question(Question):
     return either true, or value for left var
     """
     def answer(self):
-        if self._left_var is None:
+        if not isinstance(self._left_var, int):
             return self._handle_right_side()
 
         else:

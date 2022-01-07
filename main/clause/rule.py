@@ -31,7 +31,7 @@ class Rule(Clause):
             r = r.replace(CLAUSE_END, "")
             if IS_SIGN in r:
                 left, right = r.split(IS_SIGN)
-                left_var = int(left) if left.isdigit() else None
+                left_var = int(left) if left.isdigit() else left.strip()
 
                 if PLUS in right or PRODUCT in right or MINUS in right:
                     # get the right sin
@@ -51,6 +51,12 @@ class Rule(Clause):
                 body.append(Custom_question(r))
 
         return body
+
+    def size(self):
+        return len(self._params)
+
+    def __eq__(self, other):
+        return self.compare_name_value(other._name, other._value, other._params, other._cutting)
 
     """ test method """
     def compare_name_value(self, name, value, params, cutting):
