@@ -1,5 +1,8 @@
 from main.clause.clause_reader import Clause_reader
 from main.constatnts import *
+from main.clause.fact import Fact
+from main.clause.rule import Rule
+
 
 """
 This file contents classes needed for proper function of our tiny-prolog database
@@ -14,12 +17,17 @@ class Database:
     def __init__(self, file_path):
         self._setupped = False
         self._clauses = {}
+
+        self._facts = {}
+        self._rules = {}
+
         self._load_file(file_path)
 
 
     def clauses(self):
         return self._clauses
 
+    # todo this method may need a refactor
     def contains_fact(self, name, body):
         """
         for a fact with given name and size of body returns either
@@ -27,19 +35,25 @@ class Database:
         List[dict] if body contains variables, each dict contains values need for
         the fact to be true
         """
-        self._check_has_clause(name, len(body))
+        self._check_has_clause(name, len(body), self._facts)
+        facts = self._facts[name][len(body)]
         if self._only_atoms(body):
-            return body in self._clauses[name][len(body)]
+            return body in facts
 
         else:
-            # todo return list of dicts with needed values to be true
-            pass
+            set_values = [x if is_atom(x) else None for x in body]
+            keys = [x if not is_atom(x) else None for x in body]
+            res = []
+            for fact in facts:
+                tmp_res = fact.fill_rest(set_values, keys)
+                if tmp_res is not None:
+                    res.append(tmp_res)
+            return res
 
 
 
-
-    def _check_has_clause(self, name, size):
-        if name not in self._clauses or size not in self._clauses[name]:
+    def _check_has_clause(self, name, size, clauses):
+        if name not in clauses or size not in clauses[name]:
             raise Exception(BAD_INPUT_MSG)
 
     def _only_atoms(self, body):
@@ -74,3 +88,24 @@ class Database:
 
             self._clauses[n][s].append(clause)
 
+        self._split_facts_and_rules()
+
+    def _split_facts_and_rules(self):
+        # over time it started to be handy to have facts and rules splited, this method give a space for refactor
+        for name in self._clauses:
+            for argc in self._clauses[name]:
+                for tmp in self._clauses[name][argc]:
+
+                    if isinstance(tmp, Fact):
+                        if name not in self._facts:
+                            self._facts[name] = {}
+                        if argc not in self._facts[name]:
+                            self._facts[name][argc] = []
+                        self._facts[name][argc].append(tmp)
+
+                    elif isinstance(tmp, Rule):
+                        if name not in self._rules:
+                            self._rules[name] = {}
+                        if argc not in self._rules[name]:
+                            self._rules[name][argc] = []
+                        self._rules[name][argc].append(tmp)

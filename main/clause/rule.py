@@ -18,6 +18,33 @@ class Rule(Clause):
         self._cutting = False # default value
         super().__init__(body, splitted_head[0])
 
+    def __eq__(self, other):
+        if isinstance(other, Rule):
+            return self.compare_name_value(other._name, other._value, other._params, other._cutting)
+
+        return False # unknown types do not equal
+
+    def fill_rest(self, set_values, keys):
+        # todo
+        pass
+
+    def size(self):
+        return len(self._params)
+
+    """ test method """
+    def compare_name_value(self, name, value, params, cutting):
+        if len(value) != len(self._value):
+            return False
+
+        for i in range(len(value)):
+            if value[i] != self._value[i]:
+                return False
+
+        for i in range(len(params)):
+            if params[i] != self._params[i]:
+                return False
+
+        return name == self._name and cutting == self._cutting
 
     """ from string creates value of the fact"""
     def _get_value(self, body):
@@ -51,24 +78,3 @@ class Rule(Clause):
                 body.append(Custom_question(r))
 
         return body
-
-    def size(self):
-        return len(self._params)
-
-    def __eq__(self, other):
-        return self.compare_name_value(other._name, other._value, other._params, other._cutting)
-
-    """ test method """
-    def compare_name_value(self, name, value, params, cutting):
-        if len(value) != len(self._value):
-            return False
-
-        for i in range(len(value)):
-            if value[i] != self._value[i]:
-                return False
-
-        for i in range(len(params)):
-            if params[i] != self._params[i]:
-                return False
-
-        return name == self._name and cutting == self._cutting

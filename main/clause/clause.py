@@ -28,3 +28,11 @@ class Clause(ABC):
     def size(self):
         pass
 
+    @abstractmethod
+    def fill_rest(self, set_values, keys):
+        pass
+
+    @abstractmethod
+    def __eq__(self, other):
+        pass
+

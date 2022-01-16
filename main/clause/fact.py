@@ -14,6 +14,47 @@ class Fact(Clause):
 
         self._cutting = cutting
 
+    def __eq__(self, other):
+        if isinstance(other, Fact):
+            return self.compare_name_value(other._name, other._value, other._cutting)
+
+        if isinstance(other, List):
+            return self._value == other
+
+        return False # unknown types do not equal
+
+
+    def fill_rest(self, set_values, keys):
+        """
+        gets body with Nones on places need to be filled
+        returns List with filled thing instead of Nones and Nones on prefilled places
+        if body cannot be filled, returns None
+        """
+        missing = {}
+        for i in range(len(set_values)):
+            val, key, self_val = set_values[i], keys[i], self._value[i]
+            if val is not None and val != self_val: # check if this fact is usable
+                return None
+
+            if val is None:
+                missing[key] = self_val
+
+        return missing
+
+
+    def size(self):
+        return len(self._value)
+
+    """ test method """
+    def compare_name_value(self, name, value, cutting):
+        if len(value) != len(self._value):
+            return False
+
+        for i in range(len(value)):
+            if value[i] != self._value[i]:
+                return False
+
+        return name == self._name and cutting == self._cutting
 
     """ from string creates value of the fact"""
     def _get_value(self, body):
@@ -31,24 +72,3 @@ class Fact(Clause):
                 raise Exception(BAD_INPUT_MSG)
 
         return splitted
-
-    def size(self):
-        return len(self._value)
-
-    def __eq__(self, other):
-        if isinstance(other, Fact):
-            return self.compare_name_value(other._name, other._value, other._cutting)
-
-        if isinstance(other, List):
-            return self._value == other
-
-    """ test method """
-    def compare_name_value(self, name, value, cutting):
-        if len(value) != len(self._value):
-            return False
-
-        for i in range(len(value)):
-            if value[i] != self._value[i]:
-                return False
-
-        return name == self._name and cutting == self._cutting

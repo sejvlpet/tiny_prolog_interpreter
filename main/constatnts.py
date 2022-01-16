@@ -18,6 +18,6 @@ PRODUCT = "*"
 ITEM_END = "." # wrong name, overriding aaaaa
 
 def is_atom(x):
-    return isinstance(x, int) or x.isdigit() or x[0].islower
+    return isinstance(x, int) or x.isdigit() or x[0].islower()
 
 
