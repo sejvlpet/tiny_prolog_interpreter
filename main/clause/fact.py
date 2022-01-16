@@ -1,5 +1,6 @@
 from main.constatnts import *
 from main.clause.clause import Clause
+from typing import List
 
 """
 Fact shall have a name and a value, where value is a list of atoms
@@ -35,7 +36,11 @@ class Fact(Clause):
         return len(self._value)
 
     def __eq__(self, other):
-        return self.compare_name_value(other._name, other._value, other._cutting)
+        if isinstance(other, Fact):
+            return self.compare_name_value(other._name, other._value, other._cutting)
+
+        if isinstance(other, List):
+            return self._value == other
 
     """ test method """
     def compare_name_value(self, name, value, cutting):

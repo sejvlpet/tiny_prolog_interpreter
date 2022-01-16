@@ -36,5 +36,12 @@ class TestClause(unittest.TestCase):
         self.assertEqual(expected_result["fact"][2][1], c["fact"][2][1])
         self.assertEqual(expected_result["tra"][2][0], c["tra"][2][0])
 
+    def test_contains_fact_true(self):
+        file_path = "test_files/load1"
+        database = Database(file_path)
+        fact = Fact("fact(0, 1).", False)
+
+        print(database.contains_fact(fact.name(), fact._value))
+
 if __name__ == '__main__':
     unittest.main()
