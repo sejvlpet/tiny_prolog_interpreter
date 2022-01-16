@@ -25,8 +25,16 @@ class Rule(Clause):
         return False # unknown types do not equal
 
     def fill_rest(self, set_values, keys):
-        # todo
-        pass
+        """
+        gets body with Nones on places need to be filled
+        returns List with filled thing instead of Nones and Nones on prefilled places
+        if body cannot be filled, returns None
+        if situation cannot be decided, behavior is undefined
+        """
+        missing = {}
+
+    def is_true(self, body):
+        pass #todo
 
     def size(self):
         return len(self._params)

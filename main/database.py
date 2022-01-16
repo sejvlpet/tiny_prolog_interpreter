@@ -37,8 +37,13 @@ class Database:
         """
         self._check_has_clause(name, len(body))
         clauses = self._clauses[name][len(body)]
+
+        # todo ask the true for rules also, not facts only
         if self._only_atoms(body): # simple fact check
-            return body in clauses
+            for clause in clauses:
+                if clause.is_true(body):
+                    return True
+            return False
 
         else:
             set_values = [x if is_atom(x) else None for x in body]

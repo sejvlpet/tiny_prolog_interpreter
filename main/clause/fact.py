@@ -41,6 +41,9 @@ class Fact(Clause):
 
         return missing
 
+    def is_true(self, body):
+        """ fact is true if all body values are the same as self._value"""
+        return self._value == body
 
     def size(self):
         return len(self._value)

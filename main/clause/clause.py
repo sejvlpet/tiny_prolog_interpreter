@@ -33,6 +33,10 @@ class Clause(ABC):
         pass
 
     @abstractmethod
+    def is_true(self, body):
+        pass
+
+    @abstractmethod
     def __eq__(self, other):
         pass
 
