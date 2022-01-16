@@ -28,32 +28,35 @@ class Database:
         return self._clauses
 
     # todo this method may need a refactor
-    def contains_fact(self, name, body):
+    def answer(self, name, body):
         """
         for a fact with given name and size of body returns either
         bool - if body contains only atoms
         List[dict] if body contains variables, each dict contains values need for
         the fact to be true
         """
-        self._check_has_clause(name, len(body), self._facts)
-        facts = self._facts[name][len(body)]
-        if self._only_atoms(body):
-            return body in facts
+        self._check_has_clause(name, len(body))
+        clauses = self._clauses[name][len(body)]
+        if self._only_atoms(body): # simple fact check
+            return body in clauses
 
         else:
             set_values = [x if is_atom(x) else None for x in body]
             keys = [x if not is_atom(x) else None for x in body]
             res = []
-            for fact in facts:
-                tmp_res = fact.fill_rest(set_values, keys)
+            for clause in clauses:
+
+                # todo add checking for cut at this point, it should simply break out
+
+                tmp_res = clause.fill_rest(set_values, keys)
                 if tmp_res is not None:
                     res.append(tmp_res)
             return res
 
 
 
-    def _check_has_clause(self, name, size, clauses):
-        if name not in clauses or size not in clauses[name]:
+    def _check_has_clause(self, name, size):
+        if name not in self._clauses or size not in self._clauses[name]:
             raise Exception(BAD_INPUT_MSG)
 
     def _only_atoms(self, body):

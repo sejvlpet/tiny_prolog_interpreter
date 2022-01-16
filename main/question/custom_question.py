@@ -19,10 +19,7 @@ class Custom_question(Question):
 
 
     def answer(self, database):
-        if self._is_fact():
-            return database.contains_fact(self._name, self._body)
-
-        return database.satisfies_rule(self._name, self._body)
+        return database.answer(self._name, self._body)
 
 
     def _is_fact(self):

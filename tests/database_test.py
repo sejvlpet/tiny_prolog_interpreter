@@ -41,14 +41,14 @@ class TestClause(unittest.TestCase):
         database = Database(file_path)
         fact = Fact("fact(0, 1).", False)
 
-        self.assertTrue(database.contains_fact(fact.name(), fact._value))
+        self.assertTrue(database.answer(fact.name(), fact._value))
 
     def test_contains_fact_false(self):
         file_path = "test_files/load1"
         database = Database(file_path)
         fact = Fact("fact(0, 2).", False)
 
-        self.assertFalse(database.contains_fact(fact.name(), fact._value))
+        self.assertFalse(database.answer(fact.name(), fact._value))
 
     def test_contains_fact_fill_ok(self):
         file_path = "test_files/load1"
@@ -58,7 +58,7 @@ class TestClause(unittest.TestCase):
 
         expected = [{'X': 1}]
 
-        self.assertEqual(database.contains_fact(name, body), expected)
+        self.assertEqual(database.answer(name, body), expected)
 
     def test_contains_fact_fill_ok2(self):
         file_path = "test_files/load1"
@@ -68,7 +68,7 @@ class TestClause(unittest.TestCase):
 
         expected = [{'X': 0, 'Y': 1}]
 
-        self.assertEqual(database.contains_fact(name, body), expected)
+        self.assertEqual(database.answer(name, body), expected)
 
     def test_contains_fact_fill_notok(self):
         file_path = "test_files/load1"
@@ -78,7 +78,7 @@ class TestClause(unittest.TestCase):
 
         expected = []
 
-        self.assertEqual(database.contains_fact(name, body), expected)
+        self.assertEqual(database.answer(name, body), expected)
 
 if __name__ == '__main__':
     unittest.main()

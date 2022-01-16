@@ -70,8 +70,6 @@ class TestClause(unittest.TestCase):
         a = q.answer()
         self.assertFalse(a)
 
-    # todo custom_question tests
-
 
 if __name__ == '__main__':
     unittest.main()
