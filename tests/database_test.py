@@ -5,7 +5,6 @@ from main.question.custom_question import Custom_question
 from main.clause.fact import Fact
 from main.clause.rule import Rule
 from main.database import Database
-import deepdiff
 """
 Tests thing around clauses
 """
@@ -23,17 +22,19 @@ class TestClause(unittest.TestCase):
             "fact": {
                 2: [
                     Fact("fact(0, 1).", False),
-                    Rule("fact(N, Res)", "N1 is N - 1&fact(N1, SubRes)&Res is N * SubRes&!")
+                    Rule("fact(N, Res)".replace(" ", ""), "N1 is N - 1&fact(N1, SubRes)&Res is N * SubRes&!".replace(" ", ""))
                 ]
             },
             "tra": {
                 2: [
-                    Rule("tra(X, Y)", "tra(X, Z), tra(Z, Y)")
+                    Rule("tra(X, Y)".replace(" ", ""), "tra(X, Z)& tra(Z, Y)".replace(" ", ""))
                 ]
             }
         }
 
-        self.assertTrue(c == expected_result)
+        self.assertEqual(expected_result["fact"][2][0], c["fact"][2][0])
+        self.assertEqual(expected_result["fact"][2][1], c["fact"][2][1])
+        self.assertEqual(expected_result["tra"][2][0], c["tra"][2][0])
 
 if __name__ == '__main__':
     unittest.main()
