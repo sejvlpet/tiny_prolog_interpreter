@@ -34,7 +34,23 @@ class Rule(Clause):
         missing = {}
 
     def is_true(self, body):
-        pass #todo
+        # map body to variable
+        # as questions with properly mapped things
+        key_val = {}
+        for i in range(len(self._params)):
+            name = self._params[i]
+            val = body[i]
+            key_val[name] = val
+        for q in self._value: # here should be created questions with proper values
+            # create and answer the question here
+            q_object = self._create_question(q, key_val)
+
+            if not q_object.answer(): # only and supported - all question must be true for a rule to be true
+                return False, False # false never cuts
+
+        return True, self._cutting
+
+
 
     def size(self):
         return len(self._params)
@@ -55,34 +71,38 @@ class Rule(Clause):
         return name == self._name and cutting == self._cutting
 
     """ from string creates value of the fact"""
-    def _get_value(self, body):
+    def _get_value(self, body): # fixme question shouldn't be created here, only the basis for them
         splitted = body.split(PREDICATE_SEPARATOR)
         if splitted[-1][-1] == CUT_SIGN:
             self._cutting = True
             splitted[-1] = splitted[-1][:-2]
-        body = []
 
+        res = []
         for r in splitted:
-            r = r.replace(CLAUSE_END, "")
-            if IS_SIGN in r:
-                left, right = r.split(IS_SIGN)
-                left_var = int(left) if left.isdigit() else left.strip()
+            res.append(r.replace(CLAUSE_END, ""))
 
-                if PLUS in right or PRODUCT in right or MINUS in right:
-                    # get the right sin
-                    sign = PLUS if PLUS in right else None
-                    sign = MINUS if MINUS in right else sign
-                    sign = PRODUCT if PRODUCT in right else sign
+        return res
 
-                    r1, r2 = right.split(sign)
-                    r1 = int(r1) if r1.isdigit() else r1
-                    r2 = int(r2) if r2.isdigit() else r2
-                    body.append(Is_question(left_var, r1, r2, sign))
-                else:
-                    body.append(Is_question(left_var, r))
+    def _create_question(self, q, key_val):
 
-            elif CLAUSE_START in r:
-                # handle clause by name and params
-                body.append(Custom_question(r))
+        q = q.replace(CLAUSE_END, "")
+        if IS_SIGN in q:
+            left, right = q.split(IS_SIGN)
+            left_var = int(left) if left.isdigit() else left.strip()
 
-        return body
+            if PLUS in right or PRODUCT in right or MINUS in right:
+                # get the right sin
+                sign = PLUS if PLUS in right else None
+                sign = MINUS if MINUS in right else sign
+                sign = PRODUCT if PRODUCT in right else sign
+
+                r1, r2 = right.split(sign)
+                r1 = int(r1) if r1.isdigit() else r1
+                r2 = int(r2) if r2.isdigit() else r2
+                return Is_question(left_var, r1, r2, sign)
+            else:
+                return Is_question(left_var, q)
+
+        elif CLAUSE_START in q:
+            # handle clause by name and params
+            return Custom_question(q)

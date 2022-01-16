@@ -17,17 +17,12 @@ class Database:
     def __init__(self, file_path):
         self._setupped = False
         self._clauses = {}
-
-        self._facts = {}
-        self._rules = {}
-
         self._load_file(file_path)
 
 
     def clauses(self):
         return self._clauses
 
-    # todo this method may need a refactor
     def answer(self, name, body):
         """
         for a fact with given name and size of body returns either
@@ -38,12 +33,12 @@ class Database:
         self._check_has_clause(name, len(body))
         clauses = self._clauses[name][len(body)]
 
-        # todo ask the true for rules also, not facts only
         if self._only_atoms(body): # simple fact check
             for clause in clauses:
-                if clause.is_true(body):
-                    return True
-            return False
+                is_true, cutting = clause.is_true(body)
+                if is_true:
+                    return is_true, cutting
+            return False, False
 
         else:
             set_values = [x if is_atom(x) else None for x in body]
@@ -80,7 +75,7 @@ class Database:
         lines = data.split(ITEM_END)
 
         for line in lines:
-            line = line.strip().replace(" ", "")
+            line = line.strip().replace(" ", "").replace("\t", "")
             if not len(line):
                 continue
 
@@ -95,25 +90,3 @@ class Database:
                 self._clauses[n][s] = []
 
             self._clauses[n][s].append(clause)
-
-        self._split_facts_and_rules()
-
-    def _split_facts_and_rules(self):
-        # over time it started to be handy to have facts and rules splited, this method give a space for refactor
-        for name in self._clauses:
-            for argc in self._clauses[name]:
-                for tmp in self._clauses[name][argc]:
-
-                    if isinstance(tmp, Fact):
-                        if name not in self._facts:
-                            self._facts[name] = {}
-                        if argc not in self._facts[name]:
-                            self._facts[name][argc] = []
-                        self._facts[name][argc].append(tmp)
-
-                    elif isinstance(tmp, Rule):
-                        if name not in self._rules:
-                            self._rules[name] = {}
-                        if argc not in self._rules[name]:
-                            self._rules[name][argc] = []
-                        self._rules[name][argc].append(tmp)
