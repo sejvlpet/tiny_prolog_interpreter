@@ -12,4 +12,10 @@ Generally, a question is and object which returns answers, those can be
      
 """
 class Question(ABC):
-    pass
+    @abstractmethod
+    def answer(self):
+        pass
+
+    @abstractmethod
+    def __eq__(self, other):
+        pass
