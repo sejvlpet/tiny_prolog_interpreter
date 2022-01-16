@@ -41,14 +41,14 @@ class TestClause(unittest.TestCase):
         database = Database(file_path)
         fact = Fact("fact(0, 1).", False)
 
-        self.assertTrue(database.answer(fact.name(), fact._value))
+        self.assertEqual(database.answer(fact.name(), fact._value), (True, False))
 
     def test_contains_fact_false(self):
         file_path = "test_files/load1"
         database = Database(file_path)
         fact = Fact("fact(0, 2).", False)
 
-        self.assertFalse(database.answer(fact.name(), fact._value))
+        self.assertEqual(database.answer(fact.name(), fact._value), (False, False))
 
     def test_contains_fact_fill_ok(self):
         file_path = "test_files/load1"
@@ -79,6 +79,23 @@ class TestClause(unittest.TestCase):
         expected = []
 
         self.assertEqual(database.answer(name, body), expected)
+
+
+    def test_simple_rule_true(self):
+        file_path = "test_files/load2"
+        database = Database(file_path)
+        name = "fact"
+        body = [0, 1]
+
+        self.assertEqual(database.answer(name, body), (True, False))
+
+    def test_simple_rule_false(self):
+        file_path = "test_files/load2"
+        database = Database(file_path)
+        name = "fact"
+        body = [1, 1]
+
+        self.assertEqual(database.answer(name, body), (False, False))
 
 if __name__ == '__main__':
     unittest.main()

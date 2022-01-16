@@ -71,7 +71,7 @@ class Rule(Clause):
         return name == self._name and cutting == self._cutting
 
     """ from string creates value of the fact"""
-    def _get_value(self, body): # fixme question shouldn't be created here, only the basis for them
+    def _get_value(self, body):
         splitted = body.split(PREDICATE_SEPARATOR)
         if splitted[-1][-1] == CUT_SIGN:
             self._cutting = True
@@ -84,8 +84,12 @@ class Rule(Clause):
         return res
 
     def _create_question(self, q, key_val):
-
         q = q.replace(CLAUSE_END, "")
+
+        # replace variables for values
+        for key in key_val:
+            q.replace(key, str(key_val[key]))
+
         if IS_SIGN in q:
             left, right = q.split(IS_SIGN)
             left_var = int(left) if left.isdigit() else left.strip()
