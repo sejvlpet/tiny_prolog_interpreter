@@ -41,7 +41,9 @@ class Answerer:
                 tmp_res = clause.fill_rest(set_values, keys, self)
                 if tmp_res is not None:
                     res.append(tmp_res)
-            return res, False # filling never cuts
+
+            # todo return all possibles fillers
+            return res[0], False # filling never cuts
 
 
 

@@ -53,5 +53,11 @@ class Database:
         """ place facts firt, so they're asked first """
         for name in self._clauses:
             for count in self._clauses[name]:
-                self._clauses[name][count] = sorted(self._clauses[name][count], key=
-                lambda x: (x is not None, '' if isinstance(x, Fact) else type(x).__name__, x))
+                r = []
+                for tmp in self._clauses[name][count]:
+                    if isinstance(tmp, Fact):
+                        r.append(tmp)
+                for tmp in self._clauses[name][count]:
+                    if isinstance(tmp, Rule):
+                        r.append(tmp)
+                self._clauses[name][count] = r

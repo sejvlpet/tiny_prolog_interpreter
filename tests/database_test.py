@@ -113,15 +113,15 @@ class TestClause(unittest.TestCase):
 
         self.assertEqual(database.answer(name, body), (False, False))
 
-    # def test_contains_fact_5(self):
-    #     file_path = "test_files/load1"
-    #     database = Database(file_path)
-    #     name = "fact"
-    #     body = [3, "X"]
-    #
-    #     expected = [{'X': 6}]
-    #
-    #     self.assertEqual(database.answer(name, body), expected)
+    def test_contains_fact_3(self):
+        file_path = "test_files/load1"
+        database = Database(file_path)
+        name = "fact"
+        body = [3, "X"]
+
+        expected = [{'X': 6}]
+
+        self.assertEqual(database.answer(name, body), expected)
 
 if __name__ == '__main__':
     unittest.main()

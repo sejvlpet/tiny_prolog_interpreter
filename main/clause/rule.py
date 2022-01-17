@@ -32,17 +32,24 @@ class Rule(Clause):
         if situation cannot be decided, behavior is undefined
         """
         key_val = self._get_key_val(set_values)
-        to_fill = []
+        to_fill = {}
 
         for q in self._value:  # here should be created questions with proper values
             # create and answer the question here
             q_object = self._create_question(q, key_val)
             answer, cutting = q_object.answer(answerer)
             if not answer:
-                return
-            to_fill.append(answer)
+                break
+            to_fill.update(answer)
             key_val.update(answer)
+            print("olalala")
             # todo cutting may be needed to implement here too
+
+        # res = {}
+        # for key in keys:
+        #     if key is not None:
+        #         res[key] = to_fill[key]
+        return to_fill
 
 
 
