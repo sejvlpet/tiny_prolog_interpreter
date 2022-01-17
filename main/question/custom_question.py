@@ -18,8 +18,8 @@ class Custom_question(Question):
         return self._name == other._name
 
 
-    def answer(self, database):
-        return database.answer(self._name, self._body)
+    def answer(self, answerer):
+        return answerer.answer(self._name, self._body)
 
 
     def _is_fact(self):

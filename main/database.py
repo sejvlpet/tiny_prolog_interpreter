@@ -2,73 +2,29 @@ from main.clause.clause_reader import Clause_reader
 from main.constatnts import *
 from main.clause.fact import Fact
 from main.clause.rule import Rule
+from main.answerer import Answerer
 
-
-"""
-This file contents classes needed for proper function of our tiny-prolog database
-"""
-
-
-"""
-Container for informations loaded from file, handles loading itself when constructor is called
-"""
 class Database:
-
+    """
+    Container for informations loaded from file, handles loading itself when constructor is called
+    """
     def __init__(self, file_path):
         self._setupped = False
         self._clauses = {}
         self._load_file(file_path)
+        self._answerer = Answerer(self)
 
 
     def clauses(self):
         return self._clauses
 
     def answer(self, name, body):
-        """
-        for a fact with given name and size of body returns either
-        bool - if body contains only atoms
-        List[dict] if body contains variables, each dict contains values need for
-        the fact to be true
-        """
-        self._check_has_clause(name, len(body))
-        clauses = self._clauses[name][len(body)]
+        return self._answerer.answer(name, body)
 
-        if self._only_atoms(body): # simple fact check
-            for clause in clauses:
-                is_true, cutting = clause.is_true(body)
-                if is_true:
-                    return is_true, cutting
-            return False, False
-
-        else:
-            set_values = [x if is_atom(x) else None for x in body]
-            keys = [x if not is_atom(x) else None for x in body]
-            res = []
-            for clause in clauses:
-
-                # todo add checking for cut at this point, it should simply break out
-
-                tmp_res = clause.fill_rest(set_values, keys)
-                if tmp_res is not None:
-                    res.append(tmp_res)
-            return res
-
-
-
-    def _check_has_clause(self, name, size):
-        if name not in self._clauses or size not in self._clauses[name]:
-            raise Exception(BAD_INPUT_MSG)
-
-    def _only_atoms(self, body):
-        for b in body:
-            if not is_atom(b):
-                return False
-        return True
-
-    """
-    loads file and stores clauses, which should be in the file, throws expection in case of problems
-    """
     def _load_file(self, file_path):
+        """
+        loads file and stores clauses, which should be in the file, throws expection in case of problems
+        """
         with open(file_path, 'r') as file:
             data = file.read().replace('\n', '')
 
@@ -90,3 +46,12 @@ class Database:
                 self._clauses[n][s] = []
 
             self._clauses[n][s].append(clause)
+
+        self._sort_clauses()
+
+    def _sort_clauses(self):
+        """ place facts firt, so they're asked first """
+        for name in self._clauses:
+            for count in self._clauses[name]:
+                self._clauses[name][count] = sorted(self._clauses[name][count], key=
+                lambda x: (x is not None, '' if isinstance(x, Fact) else type(x).__name__, x))

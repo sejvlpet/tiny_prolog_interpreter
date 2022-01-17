@@ -5,6 +5,8 @@ from typing import List
 """
 Fact shall have a name and a value, where value is a list of atoms
 """
+
+
 class Fact(Clause):
 
     def __init__(self, fact, cutting):
@@ -21,10 +23,9 @@ class Fact(Clause):
         if isinstance(other, List):
             return self._value == other
 
-        return False # unknown types do not equal
+        return False  # unknown types do not equal
 
-
-    def fill_rest(self, set_values, keys):
+    def fill_rest(self, set_values, keys, _=None):
         """
         gets body with Nones on places need to be filled
         returns List with filled thing instead of Nones and Nones on prefilled places
@@ -33,7 +34,7 @@ class Fact(Clause):
         missing = {}
         for i in range(len(set_values)):
             val, key, self_val = set_values[i], keys[i], self._value[i]
-            if val is not None and val != self_val: # check if this fact is usable
+            if val is not None and val != self_val:  # check if this fact is usable
                 return None
 
             if val is None:
@@ -41,7 +42,7 @@ class Fact(Clause):
 
         return missing
 
-    def is_true(self, body):
+    def is_true(self, body, _=None):
         """ fact is true if all body values are the same as self._value"""
         return self._value == body, self._cutting
 
@@ -49,6 +50,7 @@ class Fact(Clause):
         return len(self._value)
 
     """ test method """
+
     def compare_name_value(self, name, value, cutting):
         if len(value) != len(self._value):
             return False
@@ -60,6 +62,7 @@ class Fact(Clause):
         return name == self._name and cutting == self._cutting
 
     """ from string creates value of the fact"""
+
     def _get_value(self, body):
         splitted = body.strip().split(ATOM_SEPARATOR)
 

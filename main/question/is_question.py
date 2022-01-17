@@ -20,15 +20,15 @@ class Is_question(Question):
     """
     return either true, or value for left var
     """
-    def answer(self):
+    def answer(self, _=None):
         if not isinstance(self._r1, int) or not isinstance(self._r1, int):
             # filling is supported only for ints on both sides of the sign
-            return False
+            return False, False
 
         if not isinstance(self._left_var, int):
-            return self._handle_right_side()
+            return {self._left_var: self._handle_right_side()}, False
         else:
-            return self._left_var == self._handle_right_side()
+            return self._left_var == self._handle_right_side(), False
 
 
 

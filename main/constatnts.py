@@ -17,7 +17,9 @@ MINUS = "-"
 PRODUCT = "*"
 ITEM_END = "." # wrong name, overriding aaaaa
 
+
 def is_atom(x):
-    return isinstance(x, int) or x.isdigit() or x[0].islower()
+    # or (len(x) > 1 and x[0] == "-" and x[1].isdigit()
+    return isinstance(x, int) or x[0].islower() or x.isdigit()
 
 

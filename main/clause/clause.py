@@ -29,11 +29,11 @@ class Clause(ABC):
         pass
 
     @abstractmethod
-    def fill_rest(self, set_values, keys):
+    def fill_rest(self, set_values, keys, answerer):
         pass
 
     @abstractmethod
-    def is_true(self, body):
+    def is_true(self, body, database):
         pass
 
     @abstractmethod

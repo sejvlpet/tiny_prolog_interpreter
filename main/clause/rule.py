@@ -24,28 +24,37 @@ class Rule(Clause):
 
         return False # unknown types do not equal
 
-    def fill_rest(self, set_values, keys):
+    def fill_rest(self, set_values, keys, answerer):
         """
         gets body with Nones on places need to be filled
         returns List with filled thing instead of Nones and Nones on prefilled places
         if body cannot be filled, returns None
         if situation cannot be decided, behavior is undefined
         """
-        missing = {}
+        key_val = self._get_key_val(set_values)
+        to_fill = []
 
-    def is_true(self, body):
-        # map body to variable
-        # as questions with properly mapped things
-        key_val = {}
-        for i in range(len(self._params)):
-            name = self._params[i]
-            val = body[i]
-            key_val[name] = val
-        for q in self._value: # here should be created questions with proper values
+        for q in self._value:  # here should be created questions with proper values
             # create and answer the question here
             q_object = self._create_question(q, key_val)
+            answer, cutting = q_object.answer(answerer)
+            if not answer:
+                return
+            to_fill.append(answer)
+            key_val.update(answer)
+            # todo cutting may be needed to implement here too
 
-            if not q_object.answer(): # only and supported - all question must be true for a rule to be true
+
+
+    def is_true(self, body, answerer):
+        # map body to variable
+        # as questions with properly mapped things
+        key_val = self._get_key_val(body)
+        for q in self._value: # here should be created questions with proper values
+            q_object = self._create_question(q, key_val)
+            answer, _ = q_object.answer(answerer)
+
+            if not answer: # only and supported - all question must be true for a rule to be true
                 return False, False # false never cuts
 
         return True, self._cutting
@@ -70,6 +79,16 @@ class Rule(Clause):
 
         return name == self._name and cutting == self._cutting
 
+    def _get_key_val(self, body):
+        key_val = {}
+        for i in range(len(self._params)):
+            if body[i] is not None:
+                # we're skipping None values, we're filling only the known ones
+                name = self._params[i]
+                val = body[i]
+                key_val[name] = val
+        return key_val
+
     """ from string creates value of the fact"""
     def _get_value(self, body):
         splitted = body.split(PREDICATE_SEPARATOR)
@@ -88,7 +107,7 @@ class Rule(Clause):
 
         # replace variables for values
         for key in key_val:
-            q.replace(key, str(key_val[key]))
+            q = q.replace(key, str(key_val[key]))
 
         if IS_SIGN in q:
             left, right = q.split(IS_SIGN)

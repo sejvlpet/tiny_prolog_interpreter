@@ -22,7 +22,7 @@ class TestClause(unittest.TestCase):
             "fact": {
                 2: [
                     Fact("fact(0, 1).", False),
-                    Rule("fact(N, Res)".replace(" ", ""), "N1 is N - 1&fact(N1, SubRes)&Res is N * SubRes&!".replace(" ", ""))
+                    Rule("fact(N, Res)".replace(" ", ""), "X is N - 1&fact(X, SubRes)&Res is N * SubRes&!".replace(" ", ""))
                 ]
             },
             "tra": {
@@ -56,7 +56,7 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [0, "X"]
 
-        expected = [{'X': 1}]
+        expected = [{'X': 1}], False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -66,7 +66,7 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = ['X', 'Y']
 
-        expected = [{'X': 0, 'Y': 1}]
+        expected = [{'X': 0, 'Y': 1}], False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -76,7 +76,7 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [1, "X"]
 
-        expected = []
+        expected = [], False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -89,6 +89,14 @@ class TestClause(unittest.TestCase):
 
         self.assertEqual(database.answer(name, body), (True, False))
 
+    def test_simple_rule_true2(self):
+        file_path = "test_files/load2"
+        database = Database(file_path)
+        name = "test"
+        body = [10, 7, 3]
+
+        self.assertEqual(database.answer(name, body), (True, False))
+
     def test_simple_rule_false(self):
         file_path = "test_files/load2"
         database = Database(file_path)
@@ -96,6 +104,24 @@ class TestClause(unittest.TestCase):
         body = [1, 1]
 
         self.assertEqual(database.answer(name, body), (False, False))
+
+    def test_simple_rule_false2(self):
+        file_path = "test_files/load2"
+        database = Database(file_path)
+        name = "test"
+        body = [11, 7, 3]
+
+        self.assertEqual(database.answer(name, body), (False, False))
+
+    # def test_contains_fact_5(self):
+    #     file_path = "test_files/load1"
+    #     database = Database(file_path)
+    #     name = "fact"
+    #     body = [3, "X"]
+    #
+    #     expected = [{'X': 6}]
+    #
+    #     self.assertEqual(database.answer(name, body), expected)
 
 if __name__ == '__main__':
     unittest.main()
