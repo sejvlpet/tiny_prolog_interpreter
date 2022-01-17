@@ -22,7 +22,7 @@ class TestClause(unittest.TestCase):
             "fact": {
                 2: [
                     Fact("fact(0, 1).", False),
-                    Rule("fact(N, Res)".replace(" ", ""), "X is N - 1&fact(X, SubRes)&Res is N * SubRes&!".replace(" ", ""))
+                    Rule("fact(N, Res)".replace(" ", ""), "X is N - 1&fact(X, SubRes)&Res is N * SubRes".replace(" ", ""))
                 ]
             },
             "tra": {
@@ -56,7 +56,7 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [0, "X"]
 
-        expected = [{'X': 1}], False
+        expected = {'X': 1}, False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -64,19 +64,9 @@ class TestClause(unittest.TestCase):
         file_path = "test_files/load1"
         database = Database(file_path)
         name = "fact"
-        body = ['X', 'Y']
+        body = ['A', 'B']
 
-        expected = [{'X': 0, 'Y': 1}], False
-
-        self.assertEqual(database.answer(name, body), expected)
-
-    def test_contains_fact_fill_notok(self):
-        file_path = "test_files/load1"
-        database = Database(file_path)
-        name = "fact"
-        body = [1, "X"]
-
-        expected = [], False
+        expected = {'A': 0, 'B': 1}, False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -113,13 +103,13 @@ class TestClause(unittest.TestCase):
 
         self.assertEqual(database.answer(name, body), (False, False))
 
-    def test_contains_fact_3(self):
+    def test_check_fact_6(self):
         file_path = "test_files/load1"
         database = Database(file_path)
         name = "fact"
-        body = [3, "X"]
+        body = [6, "X"]
 
-        expected = [{'X': 6}]
+        expected = {'X': 720}, False
 
         self.assertEqual(database.answer(name, body), expected)
 

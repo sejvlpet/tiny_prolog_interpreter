@@ -42,14 +42,20 @@ class Rule(Clause):
                 break
             to_fill.update(answer)
             key_val.update(answer)
-            print("olalala")
             # todo cutting may be needed to implement here too
 
-        # res = {}
-        # for key in keys:
-        #     if key is not None:
-        #         res[key] = to_fill[key]
-        return to_fill
+        # param names for rule have to be remapped to param names needed to fill
+        value_of = {}
+        for i in range(len(self._params)):
+            if keys[i] is not None:
+                value_of[keys[i]] = self._params[i]
+        # exactly all asked keys have to be returns
+        res = {}
+        for key in value_of:
+            val = value_of[key]
+            if val in to_fill:
+                res[key] = to_fill[val]
+        return res
 
 
 
