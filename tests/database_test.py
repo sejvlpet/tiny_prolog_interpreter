@@ -113,5 +113,35 @@ class TestClause(unittest.TestCase):
 
         self.assertEqual(database.answer(name, body), expected)
 
+    def test_check_fib(self):
+        file_path = "test_files/load3"
+        database = Database(file_path)
+        name = "fib"
+        body = [6, "X"]
+
+        expected = {'X': 13}, False
+
+        self.assertEqual(database.answer(name, body), expected)
+
+    def test_fact_up_to_100(self):
+        f = 1
+        file_path = "test_files/load1"
+        database = Database(file_path)
+        name = "fact"
+        for i in range(1, 100):
+            f *= i
+            body = [i, 'X']
+            self.assertEqual(f, database.answer(name, body)[0]['X'])
+
+    def test_fib_up_to_20(self):
+        f = [1, 1]
+        file_path = "test_files/load3"
+        database = Database(file_path)
+        name = "fib"
+        for i in range(1, 20):
+            f.append(f[-1] + f[-2])
+            body = [i, 'X']
+            self.assertEqual(f[i], database.answer(name, body)[0]['X'])
+
 if __name__ == '__main__':
     unittest.main()
