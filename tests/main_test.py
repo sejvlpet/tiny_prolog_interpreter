@@ -160,18 +160,9 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [5, "N"]
 
-        print(database.answer(name, body))
         excp = ([{'N': 50}, {'N': 120}], False)
         self.assertEqual(excp, database.answer(name, body))
 
-    def test_cutting_fact(self):
-        file_path = "test_files/load4"
-        database = Database(file_path)
-        name = "fact"
-        body = ["X", 1]
-
-        excp = ([{'X': 0}], True)
-        self.assertEqual(excp, database.answer(name, body))
 
     def test_cutting_rule(self):
         file_path = "test_files/load5"
@@ -179,7 +170,6 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [5, "N"]
 
-        print(database.answer(name, body))
         excp = ([{'N': 50}], False)
         self.assertEqual(excp, database.answer(name, body))
 
@@ -189,7 +179,6 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [5, 120]
 
-        print(database.answer(name, body))
         expected = (True, False)
         self.assertEqual(database.answer(name, body), expected)
 

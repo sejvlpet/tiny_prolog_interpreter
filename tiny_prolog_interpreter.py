@@ -19,6 +19,7 @@ def main():
     database = None
 
     while True:
+        print("Enter your command")
         com = input().strip().replace(" ", "")
         consult_len = len(CONSULT)
         q_mark_len = len(Q_MARK)

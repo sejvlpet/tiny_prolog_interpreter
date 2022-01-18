@@ -3,6 +3,6 @@ fact(N, Res) :-
 				fact(X, SubRes) &
 				Res is N * SubRes.
 
-fact(0, 1):-!.
+fact(0, 1).
 
 fact(4, 10).
