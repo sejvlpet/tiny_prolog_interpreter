@@ -186,17 +186,39 @@ class TestClause(unittest.TestCase):
         excp = ([{'N': 50}], False)
         self.assertEqual(excp, database.answer(name, body))
 
-    # def test_fact_check(self):
-    #     file_path = "test_files/load1"
-    #     database = Database(file_path)
-    #     name = "fact"
-    #     body = [5, 120]
-    #
-    #     print(database.answer(name, body))
-    #     # expected = {'X': 13}, False
-    #
-    #     # self.assertEqual(database.answer(name, body), expected)
+    def test_fact_check(self):
+        file_path = "test_files/load1"
+        database = Database(file_path)
+        name = "fact"
+        body = [5, 120]
 
+        print(database.answer(name, body))
+        expected = (True, False)
+        self.assertEqual(database.answer(name, body), expected)
+
+    def test_fact_up_to_100_check(self):
+        f = 1
+        file_path = "test_files/load1"
+        database = Database(file_path)
+        name = "fact"
+        for i in range(1, 100):
+            f *= i
+            body = [i, f]
+
+            expected = (True, False)
+            self.assertEqual(expected, database.answer(name, body))
+
+    def test_fib_up_to_20_check(self):
+        f = [1, 1]
+        file_path = "test_files/load3"
+        database = Database(file_path)
+        name = "fib"
+        for i in range(1, 20):
+            f.append(f[-1] + f[-2])
+            body = [i, f[i]]
+
+            expected = (True, False)
+            self.assertEqual(expected, database.answer(name, body))
 
 if __name__ == '__main__':
     unittest.main()

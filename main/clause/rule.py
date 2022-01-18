@@ -96,19 +96,18 @@ class Rule(Clause):
 
     def is_true(self, body, answerer):
         """ method returns true if the rule with given parameters is true """
-        key_val = self._get_key_val(body)
-        cutting = False
-        for q in self._value: # here should be created questions with proper values
-            q_object = self._create_question(q, key_val)
-            answer, tmp_cutting = q_object.answer(answerer)
+        for i in range(len(body)):
+            # the rule is true if it at least once fills the requested value with the rest parameters given
+            missed_value = body[i]
+            set_values = [body[j] if j != i else None for j in range(len(body))]
+            keys = ["X" if j == i else None for j in range(len(body))]
+            answers, cutting = self.fill_rest(set_values, keys, answerer)
 
-            cutting = cutting or tmp_cutting
-            if not answer: # only and supported - all question must be true for a rule to be true
-                return False, False # false never cuts
+            for answer in answers:
+                if answer["X"] == missed_value:
+                    return True, cutting
 
-        return True, self._cutting or cutting
-
-
+        return False, False
 
     def size(self):
         return len(self._params)

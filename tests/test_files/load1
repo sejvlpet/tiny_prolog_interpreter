@@ -4,8 +4,10 @@ fact(N, Res) :-
 				fact(X, TMP) &
 				Res is N * TMP.
 
-fact(0, 1).
 
 tra(X, Y) :- 
 				tra(X, Z) &
 				tra(Z, Y).
+
+
+fact(0, 1).
