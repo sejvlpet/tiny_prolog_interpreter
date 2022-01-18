@@ -21,7 +21,7 @@ class Is_question(Question):
     return either true, or value for left var
     """
     def answer(self, _=None):
-        if not isinstance(self._r1, int) or not isinstance(self._r1, int):
+        if not isinstance(self._r1, int) or not isinstance(self._r2, int):
             # filling is supported only for ints on both sides of the sign
             return False, False
 
