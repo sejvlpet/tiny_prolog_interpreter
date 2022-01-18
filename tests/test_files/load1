@@ -1,8 +1,8 @@
 
 fact(N, Res) :- 
 				X is N - 1 &
-				fact(X, SubRes) &
-				Res is N * SubRes.
+				fact(X, TMP) &
+				Res is N * TMP.
 
 fact(0, 1).
 

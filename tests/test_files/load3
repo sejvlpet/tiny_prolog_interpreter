@@ -1,0 +1,9 @@
+fib(0, 1).
+fib(1, 1).
+
+fib(N, Res) :-
+			X is N - 1 &
+			Y is N - 2 &
+			fib(X, A) &
+			fib(Y, B) &
+			Res is A + B.

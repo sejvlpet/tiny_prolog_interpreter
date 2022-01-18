@@ -22,7 +22,7 @@ class TestClause(unittest.TestCase):
             "fact": {
                 2: [
                     Fact("fact(0, 1).", False),
-                    Rule("fact(N, Res)".replace(" ", ""), "X is N - 1&fact(X, SubRes)&Res is N * SubRes".replace(" ", ""))
+                    Rule("fact(N, Res)".replace(" ", ""), "X is N - 1&fact(X, TMP)&Res is N * TMP".replace(" ", ""))
                 ]
             },
             "tra": {
@@ -142,6 +142,29 @@ class TestClause(unittest.TestCase):
             f.append(f[-1] + f[-2])
             body = [i, 'X']
             self.assertEqual(f[i], database.answer(name, body)[0]['X'])
+
+    def test_cutting(self):
+        file_path = "test_files/load4"
+        database = Database(file_path)
+        name = "fact"
+        body = ["X", 1]
+
+        print(database.answer(name, body))
+        # expected = {'X': 13}, False
+
+        # self.assertEqual(database.answer(name, body), expected)
+
+    # def test_fact_check(self):
+    #     file_path = "test_files/load1"
+    #     database = Database(file_path)
+    #     name = "fact"
+    #     body = [5, 120]
+    #
+    #     print(database.answer(name, body))
+    #     # expected = {'X': 13}, False
+    #
+    #     # self.assertEqual(database.answer(name, body), expected)
+
 
 if __name__ == '__main__':
     unittest.main()

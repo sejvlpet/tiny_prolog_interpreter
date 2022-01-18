@@ -1,0 +1,8 @@
+fact(N, Res) :-
+				X is N - 1 &
+				fact(X, SubRes) &
+				Res is N * SubRes.
+
+fact(0, 1).
+
+fact(3, 1).

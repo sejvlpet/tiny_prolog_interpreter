@@ -33,16 +33,18 @@ class Rule(Clause):
         """
         key_val = self._get_key_val(set_values)
         to_fill = {}
+        cutting = False
 
         for q in self._value:  # here should be created questions with proper values
             # create and answer the question here
             q_object = self._create_question(q, key_val)
-            answer, cutting = q_object.answer(answerer)
+            answer, tmp_cutting = q_object.answer(answerer)
             if not answer:
                 break
+            # todo pass all possible answers
             to_fill.update(answer)
             key_val.update(answer)
-            # todo cutting may be needed to implement here too
+            cutting = cutting or tmp_cutting
 
         # param names for rule have to be remapped to param names needed to fill
         value_of = {}
@@ -55,7 +57,7 @@ class Rule(Clause):
             val = value_of[key]
             if val in to_fill:
                 res[key] = to_fill[val]
-        return res
+        return res, cutting or self._cutting # todo can filling return cut?
 
 
 
@@ -63,14 +65,16 @@ class Rule(Clause):
         # map body to variable
         # as questions with properly mapped things
         key_val = self._get_key_val(body)
+        cutting = False
         for q in self._value: # here should be created questions with proper values
             q_object = self._create_question(q, key_val)
-            answer, _ = q_object.answer(answerer)
+            answer, tmp_cutting = q_object.answer(answerer)
 
+            cutting = cutting or tmp_cutting
             if not answer: # only and supported - all question must be true for a rule to be true
                 return False, False # false never cuts
 
-        return True, self._cutting
+        return True, self._cutting or cutting
 
 
 

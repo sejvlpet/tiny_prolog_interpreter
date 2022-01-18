@@ -40,7 +40,7 @@ class Fact(Clause):
             if val is None:
                 missing[key] = self_val
 
-        return missing
+        return missing, self._cutting
 
     def is_true(self, body, _=None):
         """ fact is true if all body values are the same as self._value"""

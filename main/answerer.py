@@ -36,14 +36,16 @@ class Answerer:
             keys = [x if not is_atom(x) else None for x in body]
             for clause in clauses:
 
-                # todo add checking for cut at this point, it should simply break out
-
                 tmp_res = clause.fill_rest(set_values, keys, self)
+                # print(tmp_res)
                 if tmp_res is not None:
-                    res.append(tmp_res)
+                    t, cutting = tmp_res
+                    res.append(t)
+                    if cutting:
+                        break
 
             # todo return all possibles fillers
-            return res[0], False # filling never cuts
+            return res[0], cutting
 
 
 
