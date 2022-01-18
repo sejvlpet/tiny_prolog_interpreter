@@ -41,6 +41,10 @@ but it seemed OK to me to let it this way for simpler testing.
 ### Tests
 To see more test, please check tests/main_test.py file.
 
+You can run them from repository root using:
+- python -m tests.main_test
+
+
 ### Rule and facts syntax
 Please check the tests/test_files to see example of syntax for rules and facts. Syntax is based on Prolog,
 but is slightly simplified. Also please note that for simplicity, negative numbers are not supported.
