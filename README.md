@@ -35,7 +35,7 @@ Use those commands to check the extra features - cuts:
 - ?- fact(5, X).
 
 This should show the difference between cutting and not. I'm aware that behavior of factorial loaded from tests/test_files/load4
-is not the same as the behavior of Prolog (which stops when it reaches a fact, yet my TinyProlog moves on to the rules),
+is not the same as the behavior as it would be in Prolog (which stops when it reaches a fact, yet my TinyProlog moves on to the rules),
 but it seemed OK to me to let it this way for simpler testing.
 
 ### Tests
