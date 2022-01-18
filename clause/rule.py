@@ -2,11 +2,11 @@ from clause.clause import Clause
 from constatnts import *
 from copy import copy
 
-"""
-Rule is a clause consisting from predicate in head and predicates in body
-for simplicity, only and in the body is implemented
-"""
+
 class Rule(Clause):
+    """
+    Rule is a clause consisting from parameters in the head and unfilled questions in the body
+    """
 
     def __init__(self, head, body):
         splitted_head = head.split(CLAUSE_START)
@@ -24,9 +24,7 @@ class Rule(Clause):
     def fill_rest(self, set_values, keys, answerer):
         """
         gets body with Nones on places need to be filled
-        returns List with filled thing instead of Nones and Nones on prefilled places
-        if body cannot be filled, returns None
-        if situation cannot be decided, behavior is undefined
+        returns list of dictionaries remaped to shape desired from object which asked for filling
         """
         key_val = self._get_key_val(set_values)
         if not len(key_val):

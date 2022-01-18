@@ -1,5 +1,5 @@
 """
-Constants used over the application
+Constants and helper functions used over the application
 """
 CONSULT = "consult"
 Q_MARK  = "?-"
@@ -23,6 +23,7 @@ def is_atom(x):
 
 
 def create_question(q):
+    """ from question string creates a question object """
     from question.is_question import Is_question
     from question.custom_question import Custom_question
     if IS_SIGN in q:

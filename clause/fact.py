@@ -2,12 +2,11 @@ from constatnts import *
 from clause.clause import Clause
 from typing import List
 
-"""
-Fact shall have a name and a value, where value is a list of atoms
-"""
-
 
 class Fact(Clause):
+    """
+    Fact shall have a name and a value, where value is a list of atoms
+    """
 
     def __init__(self, fact, cutting):
         splitted = fact.split(CLAUSE_START)

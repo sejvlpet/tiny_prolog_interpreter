@@ -2,17 +2,16 @@ from constatnts import *
 from clause.fact import Fact
 from clause.rule import Rule
 
-"""
-Handles translation from line given to constructor to proper clause, either fact or rule
-"""
 class Clause_reader:
-
+    """
+    Handles translation from line given to constructor to proper clause, either fact or rule
+    """
 
     def __init__(self, line):
         self._line = line
 
-    """ from self._line reads and return the clause """
     def read(self):
+        """ from self._line reads and return the clause """
 
         if self._reading_fact():
             cutting = False

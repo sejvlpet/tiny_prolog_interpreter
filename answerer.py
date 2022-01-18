@@ -2,7 +2,7 @@ from constatnts import *
 
 
 class Answerer:
-    """ Class handles answerin tu qestions """
+    """ Class handles answering to questions """
     def __init__(self, database):
         self._database = database
 
@@ -10,7 +10,7 @@ class Answerer:
         """
         for a fact with given name and size of body returns either
         bool - if body contains only atoms
-        List[dict] if body contains variables, each dict contains values need for
+        List[dict] if body contains variables, each dict contains values needed for
         the fact to be true
         """
         self._check_has_clause(name, len(body))

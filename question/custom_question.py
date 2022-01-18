@@ -1,9 +1,8 @@
 from question.question import Question
 from constatnts import *
 
-""" Fact_question simply checks the database"""
 class Custom_question(Question):
-
+    """ Fact_question simply checks the database"""
     def __init__(self, clause):
         splitted = clause.split(CLAUSE_START)
         self._name = splitted[0].strip()
