@@ -13,7 +13,7 @@ class TestClause(unittest.TestCase):
         pass
 
     def test_load_from_file(self):
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         c = database.clauses()
 
@@ -36,21 +36,21 @@ class TestClause(unittest.TestCase):
         self.assertEqual(expected_result["tra"][2][0], c["tra"][2][0])
 
     def test_contains_fact_true(self):
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         fact = Fact("fact(0, 1).", False)
 
         self.assertEqual(database.answer(fact.name(), fact._value), (True, False))
 
     def test_contains_fact_false(self):
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         fact = Fact("fact(0, 2).", False)
 
         self.assertEqual(database.answer(fact.name(), fact._value), (False, False))
 
     def test_contains_fact_fill_ok(self):
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         name = "fact"
         body = [0, "X"]
@@ -60,7 +60,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(database.answer(name, body), expected)
 
     def test_contains_fact_fill_ok2(self):
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         name = "fact"
         body = ['A', 'B']
@@ -70,7 +70,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(database.answer(name, body), expected)
 
     def test_simple_rule_true(self):
-        file_path = "test_files/load2"
+        file_path = "tests/test_files/load2"
         database = Database(file_path)
         name = "fact"
         body = [0, 1]
@@ -78,7 +78,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(database.answer(name, body), (True, False))
 
     def test_simple_rule_true2(self):
-        file_path = "test_files/load2"
+        file_path = "tests/test_files/load2"
         database = Database(file_path)
         name = "test"
         body = [10, 7, 3]
@@ -86,7 +86,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(database.answer(name, body), (True, False))
 
     def test_simple_rule_false(self):
-        file_path = "test_files/load2"
+        file_path = "tests/test_files/load2"
         database = Database(file_path)
         name = "fact"
         body = [1, 1]
@@ -94,7 +94,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(database.answer(name, body), (False, False))
 
     def test_simple_rule_false2(self):
-        file_path = "test_files/load2"
+        file_path = "tests/test_files/load2"
         database = Database(file_path)
         name = "test"
         body = [11, 7, 3]
@@ -102,7 +102,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(database.answer(name, body), (False, False))
 
     def test_check_fact_6(self):
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         name = "fact"
         body = [6, "X"]
@@ -112,7 +112,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(database.answer(name, body), expected)
 
     def test_check_fib(self):
-        file_path = "test_files/load3"
+        file_path = "tests/test_files/load3"
         database = Database(file_path)
         name = "fib"
         body = [6, "X"]
@@ -123,7 +123,7 @@ class TestClause(unittest.TestCase):
 
     def test_fact_up_to_100(self):
         f = 1
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         name = "fact"
         for i in range(1, 100):
@@ -133,7 +133,7 @@ class TestClause(unittest.TestCase):
 
     def test_fib_up_to_20(self):
         f = [1, 1]
-        file_path = "test_files/load3"
+        file_path = "tests/test_files/load3"
         database = Database(file_path)
         name = "fib"
         for i in range(1, 20):
@@ -142,7 +142,7 @@ class TestClause(unittest.TestCase):
             self.assertEqual(f[i], database.answer(name, body)[0][0]['X'])
 
     def test_multiple_fact_fill(self):
-        file_path = "test_files/load3"
+        file_path = "tests/test_files/load3"
         database = Database(file_path)
         name = "fib"
         body = ["A", 1]
@@ -155,7 +155,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(expc2, database.answer(name, body2))
 
     def test_multiple_rule_fill(self):
-        file_path = "test_files/load4"
+        file_path = "tests/test_files/load4"
         database = Database(file_path)
         name = "fact"
         body = [5, "N"]
@@ -165,7 +165,7 @@ class TestClause(unittest.TestCase):
 
 
     def test_cutting_rule(self):
-        file_path = "test_files/load5"
+        file_path = "tests/test_files/load5"
         database = Database(file_path)
         name = "fact"
         body = [5, "N"]
@@ -174,7 +174,7 @@ class TestClause(unittest.TestCase):
         self.assertEqual(excp, database.answer(name, body))
 
     def test_fact_check(self):
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         name = "fact"
         body = [5, 120]
@@ -184,7 +184,7 @@ class TestClause(unittest.TestCase):
 
     def test_fact_up_to_100_check(self):
         f = 1
-        file_path = "test_files/load1"
+        file_path = "tests/test_files/load1"
         database = Database(file_path)
         name = "fact"
         for i in range(1, 100):
@@ -196,7 +196,7 @@ class TestClause(unittest.TestCase):
 
     def test_fib_up_to_20_check(self):
         f = [1, 1]
-        file_path = "test_files/load3"
+        file_path = "tests/test_files/load3"
         database = Database(file_path)
         name = "fib"
         for i in range(1, 20):
