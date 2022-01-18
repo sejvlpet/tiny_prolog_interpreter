@@ -1,5 +1,5 @@
 from constatnts import *
-from main.database import Database
+from database import Database
 """
     Runs program
 
@@ -25,14 +25,15 @@ def main():
         if len(com) >= consult_len and com[: consult_len + 1] == CONSULT + "(" and com[-2:] == ").":
             # this branch shall recreate DB
 
-            file_path = com[consult_len + 1 : -1]
+            file_path = com[consult_len: ]
             database = Database(file_path)
 
         elif len(com) >= q_mark_len and com[: 2] == Q_MARK:
             # load & answer the question
             question_str = com[q_mark_len: ]
             question = create_question(question_str)
-            question.answer()
+            print(question_str)
+            print(question.answer()[0])
 
         else:
             bad_input()

@@ -1,8 +1,8 @@
-from main.clause.clause_reader import Clause_reader
-from main.constatnts import *
-from main.clause.fact import Fact
-from main.clause.rule import Rule
-from main.answerer import Answerer
+from clause.clause_reader import Clause_reader
+from constatnts import *
+from clause.fact import Fact
+from clause.rule import Rule
+from answerer import Answerer
 
 class Database:
     """

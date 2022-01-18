@@ -1,5 +1,4 @@
-from main.clause.clause_reader import Clause_reader
-from main.constatnts import *
+from constatnts import *
 
 
 class Answerer:

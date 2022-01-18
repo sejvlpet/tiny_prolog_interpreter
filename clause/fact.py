@@ -1,5 +1,5 @@
-from main.constatnts import *
-from main.clause.clause import Clause
+from constatnts import *
+from clause.clause import Clause
 from typing import List
 
 """

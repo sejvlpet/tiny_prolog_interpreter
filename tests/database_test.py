@@ -1,7 +1,7 @@
 import unittest
-from main.clause.fact import Fact
-from main.clause.rule import Rule
-from main.database import Database
+from clause.fact import Fact
+from clause.rule import Rule
+from database import Database
 
 """
 Tests thing around clauses

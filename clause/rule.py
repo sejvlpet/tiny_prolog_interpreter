@@ -1,7 +1,5 @@
-from main.clause.clause import Clause
-from main.constatnts import *
-from main.question.is_question import Is_question
-from main.question.custom_question import Custom_question
+from clause.clause import Clause
+from constatnts import *
 from copy import copy
 
 """

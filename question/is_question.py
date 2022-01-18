@@ -1,5 +1,5 @@
-from main.question.question import Question
-from main.constatnts import *
+from question.question import Question
+from constatnts import *
 
 
 """

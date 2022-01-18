@@ -15,7 +15,7 @@ IS_SIGN = "is"
 PLUS = "+"
 MINUS = "-"
 PRODUCT = "*"
-ITEM_END = "." # wrong name, overriding aaaaa
+ITEM_END = "."
 
 
 def is_atom(x):
@@ -23,8 +23,8 @@ def is_atom(x):
 
 
 def create_question(q):
-    from main.question.is_question import Is_question
-    from main.question.custom_question import Custom_question
+    from question.is_question import Is_question
+    from question.custom_question import Custom_question
     if IS_SIGN in q:
         left, right = q.split(IS_SIGN)
         left_var = int(left) if left.isdigit() else left.strip()
@@ -36,6 +36,7 @@ def create_question(q):
             sign = PRODUCT if PRODUCT in right else sign
 
             r1, r2 = right.split(sign)
+            r2 = r2.split(ITEM_END)[0] # decline the end dot in case of last item in a question/line/rule
             r1 = int(r1) if r1.isdigit() else r1
             r2 = int(r2) if r2.isdigit() else r2
             return Is_question(left_var, r1, r2, sign)
