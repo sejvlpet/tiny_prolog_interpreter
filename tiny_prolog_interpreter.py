@@ -1,5 +1,6 @@
 from constatnts import *
 from database import Database
+from question.is_question import Is_question
 """
     Runs program
 
@@ -26,14 +27,18 @@ def main():
             # this branch shall recreate DB
 
             file_path = com[consult_len: ]
-            database = Database(file_path)
+            database = Database(file_path[1: -2])
 
         elif len(com) >= q_mark_len and com[: 2] == Q_MARK:
             # load & answer the question
             question_str = com[q_mark_len: ]
             question = create_question(question_str)
-            print(question_str)
-            print(question.answer()[0])
+            if isinstance(question, Is_question):
+                print(question.answer()[0])
+            else:
+                if database is None:
+                    bad_input()
+                print(database.answer(question.name(), question.body())[0])
 
         else:
             bad_input()

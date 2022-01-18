@@ -10,6 +10,12 @@ class Custom_question(Question):
         self._body = splitted[1].split(CLAUSE_END)[0].split(ATOM_SEPARATOR)
         self._fix_types()
 
+    def name(self):
+        return self._name
+
+    def body(self):
+        return self._body
+
     def __eq__(self, other):
         if len(self._body) != len(other._body):
             return False
