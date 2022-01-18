@@ -28,6 +28,7 @@ def main():
 
             file_path = com[consult_len: ]
             database = Database(file_path[1: -2])
+            print("sucess")
 
         elif len(com) >= q_mark_len and com[: 2] == Q_MARK:
             # load & answer the question
@@ -38,7 +39,8 @@ def main():
             else:
                 if database is None:
                     bad_input()
-                print(database.answer(question.name(), question.body())[0])
+                else:
+                    print(database.answer(question.name(), question.body())[0])
 
         else:
             bad_input()
