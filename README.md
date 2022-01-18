@@ -46,5 +46,5 @@ You can run them from repository root using:
 
 
 ### Rule and facts syntax
-Please check the tests/test_files to see example of syntax for rules and facts. Syntax is based on Prolog,
-but is slightly simplified. Also please note that for simplicity, negative numbers are not supported.
+Please check the tests/test_files/sumup_fact_fib to see example of syntax for rules and facts. Syntax is based on Prolog,
+but is slightly simplified. Also, please note that for simplicity, negative numbers are not supported.
