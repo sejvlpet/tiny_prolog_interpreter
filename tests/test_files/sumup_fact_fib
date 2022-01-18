@@ -1,0 +1,19 @@
+fact(0, 1).
+fact(N, Res) :-
+				X is N - 1 &
+				fact(X, TMP) &
+				Res is N * TMP.
+
+sumup(0, 0).
+sumup(N, Res):- Tmp is N - 1 &
+                sumup(Tmp, X) &
+                Res is N + X.
+
+fib(0, 1).
+fib(1, 1).
+fib(N, Res) :-
+			X is N - 1 &
+			Y is N - 2 &
+			fib(X, A) &
+			fib(Y, B) &
+			Res is A + B.

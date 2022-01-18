@@ -1,0 +1,7 @@
+fact(0, 1).
+tmp1(1, 0).
+tmp2(1, 1)
+
+fact(X, Y) :- fact(X, Y) & tmp1(Y, X) & tmp2(Y, Y).
+
+test(X, Y, Z) :- X is Y + Z.
