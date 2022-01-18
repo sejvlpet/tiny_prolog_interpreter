@@ -1,7 +1,4 @@
 import unittest
-from main.clause.clause_reader import Clause_reader
-from main.question.is_question import Is_question
-from main.question.custom_question import Custom_question
 from main.clause.fact import Fact
 from main.clause.rule import Rule
 from main.database import Database

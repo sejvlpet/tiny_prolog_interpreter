@@ -159,23 +159,4 @@ class Rule(Clause):
         for key in key_val:
             q = q.replace(key, str(key_val[key]))
 
-        if IS_SIGN in q:
-            left, right = q.split(IS_SIGN)
-            left_var = int(left) if left.isdigit() else left.strip()
-
-            if PLUS in right or PRODUCT in right or MINUS in right:
-                # get the right sin
-                sign = PLUS if PLUS in right else None
-                sign = MINUS if MINUS in right else sign
-                sign = PRODUCT if PRODUCT in right else sign
-
-                r1, r2 = right.split(sign)
-                r1 = int(r1) if r1.isdigit() else r1
-                r2 = int(r2) if r2.isdigit() else r2
-                return Is_question(left_var, r1, r2, sign)
-            else:
-                return Is_question(left_var, q)
-
-        elif CLAUSE_START in q:
-            # handle clause by name and params
-            return Custom_question(q)
+        return create_question(q)
