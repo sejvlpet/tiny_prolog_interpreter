@@ -22,7 +22,7 @@ class Answerer:
             if isinstance(a, str) and len(a) > 1 and a[0] == "-" and a[1].isdigit():
                 return False, False
 
-
+        cutting = False
         if self._only_atoms(body): # simple fact check
             for clause in clauses:
                 is_true, cutting = clause.is_true(body, self)

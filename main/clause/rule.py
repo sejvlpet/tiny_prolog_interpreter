@@ -51,10 +51,8 @@ class Rule(Clause):
                 if cutting:
                     break
 
+
         res = self._remap_filled_vars_to_asked(filling, keys)
-
-        # param names for rule have to be remapped to param names needed to fill
-
         return res, cutting or self._cutting
 
     def _remap_filled_vars_to_asked(self, filling, keys):

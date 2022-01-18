@@ -157,14 +157,33 @@ class TestClause(unittest.TestCase):
         expc2 = ([{'A': 0, 'B': 1}, {'A': 1, 'B': 1}], False)
         self.assertEqual(expc2, database.answer(name, body2))
 
-    def test_cutting(self):
+    def test_multiple_rule_fill(self):
+        file_path = "test_files/load4"
+        database = Database(file_path)
+        name = "fact"
+        body = [5, "N"]
+
+        print(database.answer(name, body))
+        excp = ([{'N': 50}, {'N': 120}], False)
+        self.assertEqual(excp, database.answer(name, body))
+
+    def test_cutting_fact(self):
         file_path = "test_files/load4"
         database = Database(file_path)
         name = "fact"
         body = ["X", 1]
 
-        print(database.answer(name, body))
         excp = ([{'X': 0}], True)
+        self.assertEqual(excp, database.answer(name, body))
+
+    def test_cutting_rule(self):
+        file_path = "test_files/load5"
+        database = Database(file_path)
+        name = "fact"
+        body = [5, "N"]
+
+        print(database.answer(name, body))
+        excp = ([{'N': 50}], False)
         self.assertEqual(excp, database.answer(name, body))
 
     # def test_fact_check(self):

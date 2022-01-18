@@ -5,4 +5,4 @@ fact(N, Res) :-
 
 fact(0, 1):-!.
 
-fact(4, 10).
+fact(4, 10):-!.
