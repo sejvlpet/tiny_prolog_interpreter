@@ -38,14 +38,13 @@ class Answerer:
 
                 tmp_res = clause.fill_rest(set_values, keys, self)
                 # print(tmp_res)
-                if tmp_res is not None:
+                if tmp_res is not None and tmp_res[0] != [{}]:
                     t, cutting = tmp_res
-                    res.append(t)
+                    res.extend(t)
                     if cutting:
                         break
 
-            # todo return all possibles fillers
-            return res[0], cutting
+            return res, cutting
 
 
 

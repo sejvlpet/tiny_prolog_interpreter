@@ -26,7 +26,8 @@ class Is_question(Question):
             return False, False
 
         if not isinstance(self._left_var, int):
-            return {self._left_var: self._handle_right_side()}, False
+            # note that question answer is expected in List[dict] shape, may seem weird there, but is better overall
+            return [{self._left_var: self._handle_right_side()}], False
         else:
             return self._left_var == self._handle_right_side(), False
 

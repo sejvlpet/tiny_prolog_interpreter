@@ -5,9 +5,11 @@ from main.question.custom_question import Custom_question
 from main.clause.fact import Fact
 from main.clause.rule import Rule
 from main.database import Database
+
 """
 Tests thing around clauses
 """
+
 
 class TestClause(unittest.TestCase):
     def setUp(self):
@@ -56,7 +58,7 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [0, "X"]
 
-        expected = {'X': 1}, False
+        expected = [{'X': 1}], False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -66,10 +68,9 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = ['A', 'B']
 
-        expected = {'A': 0, 'B': 1}, False
+        expected = [{'A': 0, 'B': 1}], False
 
         self.assertEqual(database.answer(name, body), expected)
-
 
     def test_simple_rule_true(self):
         file_path = "test_files/load2"
@@ -109,7 +110,7 @@ class TestClause(unittest.TestCase):
         name = "fact"
         body = [6, "X"]
 
-        expected = {'X': 720}, False
+        expected = [{'X': 720}], False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -119,7 +120,7 @@ class TestClause(unittest.TestCase):
         name = "fib"
         body = [6, "X"]
 
-        expected = {'X': 13}, False
+        expected = [{'X': 13}], False
 
         self.assertEqual(database.answer(name, body), expected)
 
@@ -131,7 +132,7 @@ class TestClause(unittest.TestCase):
         for i in range(1, 100):
             f *= i
             body = [i, 'X']
-            self.assertEqual(f, database.answer(name, body)[0]['X'])
+            self.assertEqual(f, database.answer(name, body)[0][0]['X'])
 
     def test_fib_up_to_20(self):
         f = [1, 1]
@@ -141,16 +142,16 @@ class TestClause(unittest.TestCase):
         for i in range(1, 20):
             f.append(f[-1] + f[-2])
             body = [i, 'X']
-            self.assertEqual(f[i], database.answer(name, body)[0]['X'])
+            self.assertEqual(f[i], database.answer(name, body)[0][0]['X'])
 
-    def test_cutting(self):
-        file_path = "test_files/load4"
-        database = Database(file_path)
-        name = "fact"
-        body = ["X", 1]
-
-        print(database.answer(name, body))
-        # expected = {'X': 13}, False
+    # def test_cutting(self):
+    #     file_path = "test_files/load4"
+    #     database = Database(file_path)
+    #     name = "fact"
+    #     body = [{"X", 1}]
+    #
+    #     print(database.answer(name, body))
+    #     # expected = {'X': 13}, False
 
         # self.assertEqual(database.answer(name, body), expected)
 
