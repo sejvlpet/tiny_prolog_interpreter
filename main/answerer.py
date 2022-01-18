@@ -38,7 +38,7 @@ class Answerer:
 
                 tmp_res = clause.fill_rest(set_values, keys, self)
                 # print(tmp_res)
-                if tmp_res is not None and tmp_res[0] != [{}]:
+                if tmp_res is not None:
                     t, cutting = tmp_res
                     res.extend(t)
                     if cutting:

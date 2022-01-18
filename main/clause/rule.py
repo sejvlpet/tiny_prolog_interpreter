@@ -44,6 +44,8 @@ class Rule(Clause):
                 answers, cutting = q_object.answer(answerer)
                 if not answers: # ignore False answers
                     break
+                if isinstance(answers, bool):
+                    continue # do not fill anything for rules that were simply true
                 # based on given answers
                 states, filling = self._process_answer(answers, states, filling, i)
                 if cutting:
@@ -69,7 +71,8 @@ class Rule(Clause):
                 val = value_of[key]
                 if val in to_fill:
                     tmp_res[key] = to_fill[val]
-            res.append(tmp_res)
+            if len(tmp_res):
+                res.append(tmp_res)
         return res
 
     def _process_answer(self, answers, states, filling, i):

@@ -144,16 +144,28 @@ class TestClause(unittest.TestCase):
             body = [i, 'X']
             self.assertEqual(f[i], database.answer(name, body)[0][0]['X'])
 
-    # def test_cutting(self):
-    #     file_path = "test_files/load4"
-    #     database = Database(file_path)
-    #     name = "fact"
-    #     body = [{"X", 1}]
-    #
-    #     print(database.answer(name, body))
-    #     # expected = {'X': 13}, False
+    def test_multiple_fact_fill(self):
+        file_path = "test_files/load3"
+        database = Database(file_path)
+        name = "fib"
+        body = ["A", 1]
+        expc1 = ([{'A': 0}, {'A': 1}], False)
 
-        # self.assertEqual(database.answer(name, body), expected)
+        self.assertEqual(expc1, database.answer(name, body))
+
+        body2 = ["A", "B"]
+        expc2 = ([{'A': 0, 'B': 1}, {'A': 1, 'B': 1}], False)
+        self.assertEqual(expc2, database.answer(name, body2))
+
+    def test_cutting(self):
+        file_path = "test_files/load4"
+        database = Database(file_path)
+        name = "fact"
+        body = ["X", 1]
+
+        print(database.answer(name, body))
+        excp = ([{'X': 0}], True)
+        self.assertEqual(excp, database.answer(name, body))
 
     # def test_fact_check(self):
     #     file_path = "test_files/load1"
